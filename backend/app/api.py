@@ -3,11 +3,10 @@ API routes for the Minesweeper game.
 """
 from fastapi import APIRouter, HTTPException, status
 from fastapi.responses import JSONResponse
-from typing import List
 
 from .models import (
     NewGameRequest, RevealRequest, FlagRequest, GameResponse, 
-    GameListResponse, GameState, Difficulty, DIFFICULTY_CONFIGS
+    GameListResponse, Difficulty, DIFFICULTY_CONFIGS
 )
 from .game_logic import game_manager
 

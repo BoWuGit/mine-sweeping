@@ -253,31 +253,6 @@ class MinesweeperGame:
             last_updated=self.last_updated
         )
     
-    def get_public_board(self) -> List[List[Cell]]:
-        """
-        Get the board state for public display (hides mine locations).
-        
-        Returns:
-            Board with mine locations hidden for non-revealed cells
-        """
-        public_board = []
-        for y in range(self.height):
-            row = []
-            for x in range(self.width):
-                cell = self.board[y][x]
-                public_cell = Cell(
-                    x=cell.x,
-                    y=cell.y,
-                    state=cell.state,
-                    is_mine=cell.is_mine if cell.state == CellState.REVEALED else False,
-                    neighbor_mines=cell.neighbor_mines if cell.state == CellState.REVEALED else 0,
-                    is_revealed=cell.is_revealed
-                )
-                row.append(public_cell)
-            public_board.append(row)
-        return public_board
-
-
 class GameManager:
     """Manages multiple game instances."""
     
@@ -321,19 +296,6 @@ class GameManager:
         """List all active games."""
         return list(self.games.values())
     
-    def cleanup_old_games(self, max_age_hours: int = 24):
-        """Clean up old completed games."""
-        cutoff_time = datetime.now().timestamp() - (max_age_hours * 3600)
-        games_to_remove = []
-        
-        for game_id, game in self.games.items():
-            if (game.status in [GameStatus.WON, GameStatus.LOST] and 
-                game.last_updated.timestamp() < cutoff_time):
-                games_to_remove.append(game_id)
-        
-        for game_id in games_to_remove:
-            del self.games[game_id]
-
 
 # Global game manager instance
 game_manager = GameManager() 
