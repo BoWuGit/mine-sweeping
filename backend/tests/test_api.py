@@ -269,7 +269,7 @@ class TestGameAPI:
         # If we get here, the game should be won
         final_response = client.get(f"/game/{game_id}")
         final_data = final_response.json()
-        assert final_data["game_state"]["status"] in ["won", "lost"]
+        assert final_data["game_state"]["status"] in ["won"]
 
 
 if __name__ == "__main__":
