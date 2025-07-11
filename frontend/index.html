@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>扫雷游戏 - Minesweeper</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1><i class="fas fa-bomb"></i> 扫雷游戏</h1>
+            <div class="game-info">
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <span id="timer">000</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-flag"></i>
+                    <span id="flag-count">0</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-bomb"></i>
+                    <span id="mine-count">0</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Game Controls -->
+        <div class="controls">
+            <div class="difficulty-selector">
+                <label for="difficulty">难度:</label>
+                <select id="difficulty">
+                    <option value="easy">简单 (10x10)</option>
+                    <option value="medium">中等 (16x16)</option>
+                    <option value="hard">困难 (16x30)</option>
+                    <option value="custom">自定义</option>
+                </select>
+            </div>
+            
+            <div class="custom-settings" id="custom-settings" style="display: none;">
+                <div class="setting-group">
+                    <label for="custom-width">宽度:</label>
+                    <input type="number" id="custom-width" min="5" max="50" value="10" placeholder="最小5">
+                </div>
+                <div class="setting-group">
+                    <label for="custom-height">高度:</label>
+                    <input type="number" id="custom-height" min="5" max="50" value="10" placeholder="最小5">
+                </div>
+                <div class="setting-group">
+                    <label for="custom-mines">地雷数:</label>
+                    <input type="number" id="custom-mines" min="1" value="10" placeholder="最小1">
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button id="new-game-btn" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> 新游戏
+                </button>
+                <button id="restart-btn" class="btn btn-secondary" disabled>
+                    <i class="fas fa-redo"></i> 重新开始
+                </button>
+            </div>
+        </div>
+
+        <!-- Game Status -->
+        <div class="game-status" id="game-status">
+            <div class="status-message" id="status-message">准备开始游戏</div>
+            <div class="game-tip" style="margin-top: 6px; color: #666; font-size: 15px; text-align: center;">
+                💡 提示：右键点击可以标记地雷
+            </div>
+        </div>
+
+        <!-- Game Board -->
+        <div class="game-board-container">
+            <div class="game-board" id="game-board">
+                <!-- Board will be generated here -->
+            </div>
+        </div>
+
+        <!-- Game Over Modal -->
+        <div class="modal" id="game-over-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modal-title">游戏结束</h2>
+                </div>
+                <div class="modal-body">
+                    <p id="modal-message">游戏已结束</p>
+                    <div class="modal-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <span>时间: <span id="modal-time">000</span>秒</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-flag"></i>
+                            <span>标记: <span id="modal-flags">0</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="modal-new-game" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> 新游戏
+                    </button>
+                    <button id="modal-close" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> 关闭
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>加载中...</p>
+        </div>
+    </div>
+
+    <!-- 音效文件 -->
+    <script src="sounds.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音效测试 - Minesweeper</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+        .sound-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .sound-btn {
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .sound-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .sound-btn:active {
+            transform: translateY(0);
+        }
+        .status {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .toggle-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 扫雷游戏音效测试</h1>
+        
+        <div class="sound-buttons">
+            <button class="sound-btn" onclick="playSound('click')">
+                🖱️ 点击音效
+            </button>
+            <button class="sound-btn" onclick="playSound('beep')">
+                🔔 蜂鸣音效
+            </button>
+            <button class="sound-btn" onclick="playSound('explosion')">
+                💥 爆炸音效
+            </button>
+            <button class="sound-btn" onclick="playSound('victory')">
+                🎉 胜利音效
+            </button>
+        </div>
+        
+        <div class="status" id="status">
+            点击按钮测试音效
+        </div>
+        
+        <button class="toggle-btn" onclick="toggleSound()" id="toggle-btn">
+            🔇 关闭音效
+        </button>
+    </div>
+
+    <script src="sounds.js"></script>
+    <script>
+        let soundEnabled = true;
+        
+        function updateStatus(message) {
+            document.getElementById('status').textContent = message;
+        }
+        
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const btn = document.getElementById('toggle-btn');
+            if (soundEnabled) {
+                btn.textContent = '🔇 关闭音效';
+                btn.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)';
+                updateStatus('音效已开启');
+            } else {
+                btn.textContent = '🔊 开启音效';
+                btn.style.background = 'linear-gradient(135deg, #2ed573 0%, #1e90ff 100%)';
+                updateStatus('音效已关闭');
+            }
+        }
+        
+        // 重写playSound函数以支持开关
+        const originalPlaySound = window.playSound;
+        window.playSound = function(soundName) {
+            if (!soundEnabled) {
+                updateStatus('音效已关闭');
+                return;
+            }
+            
+            if (originalPlaySound) {
+                originalPlaySound(soundName);
+                updateStatus(`播放音效: ${soundName}`);
+            } else {
+                updateStatus('音效系统未加载');
+            }
+        };
+        
+        // 页面加载完成后的状态
+        document.addEventListener('DOMContentLoaded', () => {
+            updateStatus('音效系统已加载，点击按钮测试');
+        });
+    </script>
+</body>
+</html> 
