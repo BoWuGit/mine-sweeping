@@ -10,7 +10,7 @@ from .api import router as game_router
 # Create FastAPI app
 app = FastAPI(
     title="Minesweeper Game API",
-    description="A complete Minesweeper game API with support for multiple games and Agent/MCP integration",
+    description="A complete Minesweeper game API with support for multiple games",
     version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc"
@@ -54,7 +54,6 @@ async def api_info():
                 "Multiple game support",
                 "Configurable difficulty levels",
                 "Real-time game state",
-                "Agent/MCP integration ready",
                 "Complete REST API",
                 "Interactive documentation"
             ],
