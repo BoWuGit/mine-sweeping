@@ -12,6 +12,12 @@
 - 🚀 FastAPI后端服务
 - 🤖 支持Agent和MCP集成
 
+## 演示视频
+
+https://github.com/user-attachments/assets/6483ee24-891c-4fc8-a758-c88566f34a06
+
+*观看演示视频了解游戏功能和操作方式*
+
 ## 项目结构
 
 ```
